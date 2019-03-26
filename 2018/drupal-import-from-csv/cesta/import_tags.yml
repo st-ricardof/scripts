@@ -1,0 +1,19 @@
+id: import_tags
+
+# 1 source
+source:
+  plugin: csv
+  path: '/home/ricardo/cesta/words.csv'
+  header_row_count: 1
+  keys:
+    - Title
+  fields:
+    Title: the tag.
+# 2 process
+process:
+  name: Title
+
+# 3 process
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: tags

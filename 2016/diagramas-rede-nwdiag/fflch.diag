@@ -1,0 +1,49 @@
+nwdiag {
+network vlan192 { 
+address = "192.168.8.0/24";
+"afrodite \n Firebird" [address ="192.168.8.7"];
+"andromeda \n Servidor Apache PHP Interno" [address ="192.168.8.4"];
+"fenix \n MySQL" [address ="192.168.8.5"];
+"Jericho \n Servidor Apache PHP com FTP Externo" [address ="192.168.8.3"];
+"pegasus \n proxy reverso" [address ="192.168.8.2"];
+"perseu \n postgresql" [address ="192.168.8.6"];
+}network invalida { 
+address = "172.16.0.0/21";
+"svrbackup \n svrBackup e servidor de LOG" [address ="172.16.6.28"];
+"zentyal \n Domínio implementado Zentyal4" [address ="172.16.0.28"];
+"alpha \n firewall iptables e squid" [address ="172.16.0.28"];
+"tempestade \n glpi e ocs" [address ="172.16.5.251"];
+"vcenterFCS \n VcenterFCS" [address ="172.16.0.11"];
+"Vibranium \n Máquina virtual de teste do Augusto" [address ="172.16.0.5"];
+"yggdrasil \n glpi serviços gerais" [address ="172.16.0.6"];
+"bifrost \n Novo Banco de Dados Replicado" [address ="172.16.6.109"];
+"monitoramento \n Monitoramento scinfor-030125" [address ="172.16.6.72"];
+}network biblioteca { 
+address = "10.20.30.0/25";
+"fwbib \n svrFire Biblioteca" [address ="10.20.30.1"];
+}network nuvem { 
+address = "10.2.0.0/22";
+"hulk \n Aplicações Java" [address ="10.2.2.8"];
+"mystique \n Backup Internuvem" [address ="10.2.2.71"];
+"aegir \n Sites Drupal" [address ="10.2.0.26"];
+"aegirmysql \n Banco de Dados Sites Drupal" [address ="10.2.2.211"];
+"sistemas_apache \n Sistemas Terceiros" [address ="10.2.3.84"];
+"sistemas_mysql \n Banco de Dados Sistemas Terceiros" [address ="10.2.3.88"];
+"lcb \n Apoio Didático em pesquisas atmosféricas" [address ="10.2.2.159"];
+}network TV { 
+address = "192.168.147.0/27";
+}network valida { 
+address = "143.107.8.0/24";
+"orion \n Firewall para Servidores" [address ="143.107.8.230"];
+"pfsense \n Autenticador de redes sem-fio" [address ="143.107.8.25"];
+"svrbackup \n svrBackup e servidor de LOG" [address ="143.107.8.28"];
+"antivirus \n svrAntiVirus f-secure" [address ="143.107.8.13"];
+"mythus \n DNS controler fflch.usp.br" [address ="143.107.8.20"];
+"alpha \n firewall iptables e squid" [address ="143.107.8.10"];
+"fwbib \n svrFire Biblioteca" [address ="143.107.8.30"];
+"tempestade \n glpi e ocs" [address ="143.107.8.5"];
+"web \n Web Antigo" [address ="143.107.8.79"];
+"ldap01 \n Autenticação LDAP" [address ="143.107.8.11"];
+"BD-sti \n Bancos de dados: firebird, Mysql e Psql" [address ="143.107.8.73"];
+"replicado \n Banco de Dados Replicado" [address ="143.107.8.74"];
+}}

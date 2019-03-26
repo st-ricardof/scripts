@@ -1,0 +1,58 @@
+id: migration_banco_11
+
+# 1 source
+source:
+  plugin: csv
+  path: '/home/ricardo/cesta/newplanilha.csv'
+  header_row_count: 1
+  keys:
+    - id
+  column_names:
+    0:
+      id: ID
+    1:
+      autor: NOME
+    2:
+      titulo: TITULO
+    3:
+      qualificacao: QUALIFICACAO
+    4:
+      disciplina: DISCIPLINA
+    5:
+      universidade: UNIVERSIDADE
+    6:
+      orientador: ORIENTADOR
+    7:
+      paginas: PAG
+    8:
+      palavraschave: PALAVRASCHAVE
+#    9:
+#      ano: ANO
+#    10:
+#      link: LINK
+# 2 process
+process:
+  title: titulo
+  field_autor: autor
+  field_qualificacao1: qualificacao
+  field_disciplina1: disciplina
+  field_universidade1: universidade
+  field_orientador: orientador
+  field_paginas1: paginas
+  field_palavras_chave1:
+    -
+      plugin: explode
+      delimiter: ', '
+      source: palavraschave
+    -
+      plugin: migration_lookup
+      migration: import_tags
+#  field_ano1: ano
+#  field_link1: link
+  type:
+    plugin: default_value
+    default_value: banco
+
+# 3 process
+destination:
+  plugin: entity:node
