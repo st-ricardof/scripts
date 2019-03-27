@@ -1,4 +1,4 @@
-data <- read.csv("~/Downloads/log1.csv", row.names = NULL,nrows=1000000, stringsAsFactors= FALSE)
+data <- read.csv("~/Downloads/log1.csv", row.names = NULL, stringsAsFactors= FALSE)
 
 dates<-c()
 accounts<-c()
