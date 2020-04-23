@@ -194,21 +194,86 @@ colnames(df)[names(df) == "field_in_cio_inscri_o_fim"] = 'field_in_cio_inscri_o|
 
 write.csv(df,"outputs/editais_e_oportunidades.csv",row.names = F, na = "")
 
-
 #############################
 # Processos seletivos de Pós-graduação (Identificador: processo_seletivo_de_p_s_gradua_)
-# Publicações (Identificador: lan_amentos)
-# Pós-doutorado (Identificador: posdoutorado)
-# Teses e dissertações defendidas (Identificador: teses_e_dissertacoes_defendidas)
-# Vídeos (Identificador: video)
+df = read.csv("./inputs/export_processo_seletivo.csv", stringsAsFactors = F)
+nrow(df)
 
+# trim nas colunas:
+df <- data.frame(lapply(df, trimws), stringsAsFactors = FALSE)
+
+df['field_conte_do|format']='full_html'
+colnames(df)[names(df) == "field_conte_do"] = 'field_conte_do|value'
+write.csv(df,"outputs/processo_seletiv.csv",row.names = F, na = "")
+
+###############################
+# Publicações (Identificador: lan_amentos)
+df = read.csv("./inputs/export_publicacoes.csv", stringsAsFactors = F)
+nrow(df)
+
+# trim nas colunas:
+df <- data.frame(lapply(df, trimws), stringsAsFactors = FALSE)
+
+df['field_corpo|format']='full_html'
+colnames(df)[names(df) == "field_corpo"] = 'field_corpo|value'
+write.csv(df,"outputs/publicacoes.csv",row.names = F, na = "")
+
+###############################
+# Pós-doutorado (Identificador: posdoutorado)
+df = read.csv("./inputs/export_posdoutorado.csv", stringsAsFactors = F)
+nrow(df)
+
+# trim nas colunas:
+df <- data.frame(lapply(df, trimws), stringsAsFactors = FALSE)
+
+df$field_atualizacao = strptime(df$field_atualizacao, "%d/%m/%Y")
+df$field_atualizacao = as.character(df$field_atualizacao)
+
+df$field_vig_ncia_inicio = strptime(df$field_vig_ncia_inicio, "%d/%m/%Y")
+df$field_vig_ncia_inicio = as.character(df$field_vig_ncia_inicio)
+
+df$field_vig_ncia_fim = strptime(df$field_vig_ncia_fim, "%d/%m/%Y")
+df$field_vig_ncia_fim = as.character(df$field_vig_ncia_fim)
+
+colnames(df)[names(df) == "field_vig_ncia_inicio"] = 'field_vig_ncia|value'
+colnames(df)[names(df) == "field_vig_ncia_fim"] = 'field_vig_ncia|end_value'
+
+write.csv(df,"outputs/posdoutorado.csv",row.names = F, na = "")
+
+############################################
+# Teses e dissertações defendidas (Identificador: teses_e_dissertacoes_defendidas)
+df = read.csv("./inputs/export_teses.csv", stringsAsFactors = F)
+
+# trim nas colunas:
+df <- data.frame(lapply(df, trimws), stringsAsFactors = FALSE)
+
+df['field_conteudo_teses_disserta|format']='full_html'
+colnames(df)[names(df) == "field_conteudo_teses_disserta"] = 'field_conteudo_teses_disserta|value'
+write.csv(df,"outputs/teses.csv",row.names = F, na = "")
+
+#########################
+# Vídeos (Identificador: video)
+df = read.csv("./inputs/export_videos.csv", stringsAsFactors = F)
+
+# trim nas colunas:
+df <- data.frame(lapply(df, trimws), stringsAsFactors = FALSE)
+
+df['field_corpo_|format']='full_html'
+colnames(df)[names(df) == "field_corpo_"] = 'field_corpo_|value'
+write.csv(df,"outputs/videos.csv",row.names = F, na = "")
+##############
 # Página (Identificador: page)
 #   No tipo de conteúdo página é usado o módulo field_jquery_tabs
 #   Portanto os campos relacionado as tabs não foram migrados
 #   Migrar anexos
+# (não foi usado..., pois só tem 1 node)
+df = read.csv("./inputs/export_page.csv", stringsAsFactors = F)
 
+# trim nas colunas:
+df <- data.frame(lapply(df, trimws), stringsAsFactors = FALSE)
+anexos = data.frame(do.call('rbind', strsplit(as.character(df$field_anexar_arquivo),',',fixed=TRUE)))
 
-# Módulos pós-migração
+# Módulos pós-migração (vamos instalar?)
 # https://www.drupal.org/project/auto_entitylabel
 
 
