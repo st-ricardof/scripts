@@ -169,6 +169,33 @@ write.csv(df,"outputs/gradehoraria.csv",row.names = F, na = "")
 
 ############################
 # Editais e Oportunidades (Identificador: editais_e_oportunidades)
+# field_in_cio_inscri_o_inicio e field_in_cio_inscri_o_fim
+# full_html: field_informacoes_oportunidades
+
+df = read.csv("./inputs/export_editais_e_oportunidades.csv", stringsAsFactors = F)
+nrow(df)
+
+# trim nas colunas:
+df <- data.frame(lapply(df, trimws), stringsAsFactors = FALSE)
+
+df['field_informacoes_oportunidades|format']='full_html'
+colnames(df)[names(df) == "field_informacoes_oportunidades"] = 'field_informacoes_oportunidades|value'
+
+# datas
+df$field_in_cio_inscri_o_inicio = strptime(df$field_in_cio_inscri_o_inicio, "%d/%m/%Y")+3*60*60
+df$field_in_cio_inscri_o_fim = strptime(df$field_in_cio_inscri_o_fim, "%d/%m/%Y")+3*60*60
+
+# converte para string no formato "2020-03-31T13:00:00"
+df$field_in_cio_inscri_o_inicio = str_replace(as.character(df$field_in_cio_inscri_o_inicio), ' ', 'T')
+df$field_in_cio_inscri_o_fim = str_replace(as.character(df$field_in_cio_inscri_o_fim), ' ', 'T')
+
+colnames(df)[names(df) == "field_in_cio_inscri_o_inicio"] = 'field_in_cio_inscri_o|value'
+colnames(df)[names(df) == "field_in_cio_inscri_o_fim"] = 'field_in_cio_inscri_o|end_value'
+
+write.csv(df,"outputs/editais_e_oportunidades.csv",row.names = F, na = "")
+
+
+#############################
 # Processos seletivos de Pós-graduação (Identificador: processo_seletivo_de_p_s_gradua_)
 # Publicações (Identificador: lan_amentos)
 # Pós-doutorado (Identificador: posdoutorado)
