@@ -134,11 +134,41 @@ colnames(df)[names(df) == "field_pervig_inicio"] = 'field_pervig|value'
 colnames(df)[names(df) == "field_pervig_fim"] = 'field_pervig|end_value'
 write.csv(df,"outputs/bolsas_pos.csv",row.names = F, na = "")
 
-
 ###################
-# Docentes (Identificador: professores) - sem títulos
-# Editais e Oportunidades (Identificador: editais_e_oportunidades)
+# Docentes (Identificador: professores)
+# full_html: field_sobre
+df = read.csv("./inputs/export_docentes.csv", stringsAsFactors = F)
+nrow(df)
+
+# trim nas colunas:
+df <- data.frame(lapply(df, trimws), stringsAsFactors = FALSE)
+
+df['field_sobre|format']='full_html'
+colnames(df)[names(df) == "field_sobre"] = 'field_sobre|value'
+
+write.csv(df,"outputs/docentes.csv",row.names = F, na = "")
+
+############################
 # Grade horária e ementas (Identificador: grade_horaria)
+# field_conteudo_grade: full_html
+# data: field_grade_ano
+df = read.csv("./inputs/export_gradehoraria.csv", stringsAsFactors = F)
+nrow(df)
+
+# trim nas colunas:
+df <- data.frame(lapply(df, trimws), stringsAsFactors = FALSE)
+
+df['field_conteudo_grade|format']='full_html'
+colnames(df)[names(df) == "field_conteudo_grade"] = 'field_conteudo_grade|value'
+
+# field_grade_ano
+df$field_grade_ano = strptime(paste(df$field_grade_ano, "0102", sep=""), "%Y%d%m")
+df$field_grade_ano = paste(df$field_grade_ano, "T13:00:00", sep="")
+
+write.csv(df,"outputs/gradehoraria.csv",row.names = F, na = "")
+
+############################
+# Editais e Oportunidades (Identificador: editais_e_oportunidades)
 # Processos seletivos de Pós-graduação (Identificador: processo_seletivo_de_p_s_gradua_)
 # Publicações (Identificador: lan_amentos)
 # Pós-doutorado (Identificador: posdoutorado)
