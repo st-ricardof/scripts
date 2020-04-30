@@ -1,7 +1,7 @@
 # filosofia.fflch.usp.br
 rm(list=ls())
 library(stringr)
-setwd("~/repos/scripts/migracao-drupal-d6-d7-d8/filosofia.flch.usp.br/")
+setwd("~/repos/scripts/migracao-drupal-d6-d7-d8/filosofia.fflch.usp.br/")
 
 ######################
 # Agenda de Defesas (Identificador: agenda_de_defesas)
