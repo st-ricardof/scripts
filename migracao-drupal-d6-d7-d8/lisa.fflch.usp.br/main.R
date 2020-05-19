@@ -1,6 +1,7 @@
 # lisa.fflch.usp.br descritoes
 rm(list=ls())
 library(stringr)
+library(rapport)
 
 setwd("~/repos/scripts/migracao-drupal-d6-d7-d8/lisa.fflch.usp.br/")
 
@@ -24,7 +25,7 @@ for(i in 1:nrow(df)) {
 
 procuraPai <- function(codigo) 
 {
-  if(codigo == '' | is.na(codigo)) return('')
+  #if(codigo == '' | is.na(codigo)) return('')
   # pego quantos elementos tem no código: 001.2.1 será 3
   v = str_split(codigo, "\\.")[[1]]
   n = length(v)
@@ -44,3 +45,25 @@ for(i in 1:nrow(df)) {
 }
 
 write.csv(df,"output_descritores.csv",row.names = F, na = "")
+
+############# corrgi tid vídeos
+df_videos = read.csv("./arruma_tid_descritores_videos.csv", stringsAsFactors = F)
+df_videos <- data.frame(lapply(df_videos, trimws), stringsAsFactors = F)
+
+# Varrer a tabela
+
+for(i in 1:nrow(df_videos)) {
+  for(coluna in 4:26){
+    if(! is.na(df_videos[i,coluna])) {
+      if( df_videos[i,coluna] != '') {
+        codigo_antigo = df_videos[i,coluna]
+        codigo_novo = df[df$SGA_DESCRITOR==codigo_antigo,]$tid
+        if( length(codigo_novo)!=0 ){
+          df_videos[i,coluna] = codigo_novo
+        }
+      }
+    }
+  }
+}
+
+write.csv(df_videos,"df_videos.csv",row.names = F, na = "")
