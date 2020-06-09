@@ -67,3 +67,28 @@ for(i in 1:nrow(df_videos)) {
 }
 
 write.csv(df_videos,"df_videos.csv",row.names = F, na = "")
+
+
+
+############# corrgi tid imagens
+df_imagens = read.csv("./arruma_tid_descritores_imagens.csv", stringsAsFactors = F)
+df_imagens <- data.frame(lapply(df_imagens, trimws), stringsAsFactors = F)
+
+# Varrer a tabela
+
+for(i in 1:nrow(df_imagens)) {
+  for(coluna in 5:28){
+    if(! is.na(df_imagens[i,coluna])) {
+      if( df_imagens[i,coluna] != '') {
+        codigo_antigo = df_imagens[i,coluna]
+        codigo_novo = df[df$SGA_DESCRITOR==codigo_antigo,]$tid
+        if( length(codigo_novo)!=0 ){
+          df_imagens[i,coluna] = codigo_novo
+        }
+      }
+    }
+  }
+}
+
+write.csv(df_imagens,"df_imagens.csv",row.names = F, na = "")
+
