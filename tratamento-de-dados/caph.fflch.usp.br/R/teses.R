@@ -1,12 +1,12 @@
-setwd("~/remota/repos/fflch/caph-fflch-usp-br/scripts/")
-# acho q as do sites estão mais atualizadas
+setwd("~/repos/scripts/tratamento-de-dados/caph.fflch.usp.br/")
 
-# - catálogo49  - sistema no Microsoft em Acess - Verdinho
 teses <- read.csv('data/teses.csv')
 
 # ano
 anos = sort(as.character(unique(teses$ano)))
+anos
 remover_anos = c(anos[1:9],anos[85:86]) 
+remover_anos
 teses$ano[teses$ano %in% remover_anos] = NA
 
 # grau

@@ -13,3 +13,5 @@
 *_cache/
 /cache/
 
+/.ipynb_checkpoints
+
